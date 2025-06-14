@@ -25,3 +25,4 @@ resource "spacelift_environment_variable" "var2" {
   value      = "secret-stuff"
   write_only = true
 }
+
