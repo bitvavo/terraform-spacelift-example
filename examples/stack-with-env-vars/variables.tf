@@ -10,7 +10,7 @@ variable "environment" {
   default     = "development"
 }
 
-variable "app_version" {gstat
+variable "app_version" {
   type        = string
   description = "Version number"
   default     = "1.0.0"
