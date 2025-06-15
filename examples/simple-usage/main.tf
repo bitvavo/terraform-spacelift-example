@@ -1,21 +1,24 @@
 terraform {
   required_providers {
-    spacelift = {
-      source = "spacelift-io/spacelift"
+    local = {
+      source = "hashicorp/local"
+      version = "~> 2.0"
     }
   }
 }
 
-provider "spacelift" {
-  alias = "my-spacelift"
-}
-
-module "example-stack" {
+module "example_file" {
   source = "../../"
 
-  new_stack_name = "example-stack"
+  file_name = "simple-example"
+}
 
-  providers = {
-    spacelift = spacelift.my-spacelift
-  }
+output "created_file_path" {
+  description = "Path to the file created by the module"
+  value       = module.example_file.file_path
+}
+
+output "created_file_content" {
+  description = "Content of the file created by the module"
+  value       = module.example_file.file_content
 }

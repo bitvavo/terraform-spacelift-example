@@ -1,27 +1,38 @@
 terraform {
   required_providers {
-    spacelift = {
-      source = "spacelift-io/spacelift"
+    local = {
+      source = "hashicorp/local"
+      version = "~> 2.0"
     }
   }
 }
 
-module "stack" {
+module "main_file" {
   source = "../../"
 
-  new_stack_name = "stack-with-env-vars-${var.spacelift_run_id}"
+  file_name = "main-file-${var.file_suffix}"
 }
 
-resource "spacelift_environment_variable" "var1" {
-  stack_id   = module.stack.new_stack_id
-  name       = "MY_VAR"
-  value      = "hello"
-  write_only = false
+resource "local_file" "config_file" {
+  content  = "Configuration settings:\nENV: ${var.environment}\nVERSION: ${var.version}"
+  filename = "${path.module}/config-${var.file_suffix}.txt"
 }
 
-resource "spacelift_environment_variable" "var2" {
-  stack_id   = module.stack.new_stack_id
-  name       = "SUPER_SECRET"
-  value      = "secret-stuff"
-  write_only = true
+resource "local_file" "secrets_file" {
+  content  = "Secret configuration:\nAPI_KEY: secret-api-key\nDB_PASSWORD: super-secret-password"
+  filename = "${path.module}/secrets-${var.file_suffix}.txt"
+}
+
+output "main_file_path" {
+  description = "Path to the main file created by the module"
+  value       = module.main_file.file_path
+}
+
+output "all_created_files" {
+  description = "List of all created files"
+  value = [
+    module.main_file.file_path,
+    local_file.config_file.filename,
+    local_file.secrets_file.filename
+  ]
 }

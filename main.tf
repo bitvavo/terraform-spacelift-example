@@ -1,14 +1,13 @@
 terraform {
   required_providers {
-    spacelift = {
-      source = "spacelift-io/spacelift"
+    local = {
+      source = "hashicorp/local"
+      version = "~> 2.0"
     }
   }
 }
 
-resource "spacelift_webhook" "simple-webhook-4" {
-  stack_id = "iac-sandbox-envs-lab"
-
-  endpoint = "https://example.com/example_webhook"
-  secret   = "my_secret"
+resource "local_file" "example_file" {
+  content  = "Hello from Terraform module!\nFile created: ${timestamp()}\nFile name: ${var.file_name}"
+  filename = "${path.module}/${var.file_name}.txt"
 }
