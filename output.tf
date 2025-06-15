@@ -1,4 +1,4 @@
-output "new_stack_id" {Add commentMore actions
+output "new_stack_id" {
   value = var.new_stack_id
   description = "id of created stack"
 }
