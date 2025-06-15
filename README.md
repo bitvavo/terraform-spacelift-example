@@ -1,4 +1,4 @@
-# Terraform Local File Example Module
+# Terraform Spacelift Example Module
 
 This repository provides a simple Terraform module that creates local files without requiring any external authentication or services.
 
