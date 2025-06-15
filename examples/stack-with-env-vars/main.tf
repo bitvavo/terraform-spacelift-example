@@ -14,7 +14,7 @@ module "main_file" {
 }
 
 resource "local_file" "config_file" {
-  content  = "Configuration settings:\nENV: ${var.environment}\nVERSION: ${var.version}"
+  content  = "Configuration settings:\nENV: ${var.environment}\nVERSION: ${var.app_version}"
   filename = "${path.module}/config-${var.file_suffix}.txt"
 }
 
