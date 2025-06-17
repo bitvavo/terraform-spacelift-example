@@ -7,4 +7,5 @@ variable "file_name" {
 variable "vpc_id" {
   type        = string
   description = "The ID of the VPC"
+  default     = "dummy-vpc-id"
 }
